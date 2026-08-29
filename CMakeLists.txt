@@ -8,9 +8,9 @@ juce_add_plugin(NeonDrive85
     FORMATS VST3
     PRODUCT_NAME "Neon Drive 85")
 target_sources(NeonDrive85 PRIVATE
-  Source/Source/PluginProcessor.cpp
-     Source/Source/Source/PluginEditor.h
-    Source/Source/PluginProcessor.h
+  Source/PluginProcessor.cpp
+     Source/PluginEditor.h
+    Source/PluginProcessor.h
     Source/Arpeggiator.h)
 target_link_libraries(NeonDrive85 PRIVATE
     juce::juce_audio_utils
