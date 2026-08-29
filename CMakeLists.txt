@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(NeonDrive85 VERSION 1.0.0)
 add_subdirectory(JUCE)
-juce_add_plugin(NeonDrive85
-    COMPANY_NAME "DJUPASODERN"
+juce_add_plugin(NeonDrive85GENERATE_JUCE_HEADER TRUE)    COMPANY_NAME "DJUPASODERN"
     PLUGIN_MANUFACTURER_CODE Ndrv
     PLUGIN_CODE Nd85
     FORMATS VST3
