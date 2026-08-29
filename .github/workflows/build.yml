@@ -4,7 +4,7 @@ jobs:
   build-mac:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Clone JUCE
         run: git clone --depth 1 https://github.com/juce-framework/JUCE.git
       - name: Configure
@@ -12,7 +12,7 @@ jobs:
       - name: Build
         run: cmake --build build
       - name: Upload VST3
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: NeonDrive85-VST3
           path: build/NeonDrive85_artefacts/VST3/
