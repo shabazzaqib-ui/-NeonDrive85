@@ -2,7 +2,7 @@ name: Build VST3
 on: [push]
 jobs:
   build-mac:
-    runs-on: macos-latest
+    runs-on: macos-15-intel
     steps:
       - uses: actions/checkout@v5
       - name: Clone JUCE
