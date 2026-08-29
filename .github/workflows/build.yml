@@ -1,18 +1,54 @@
-name: Build VST3
-on: [push]
+name: Build macOS
+
+on:
+  push:
+  pull_request:
+
 jobs:
   build-mac:
     runs-on: macos-15-intel
+
     steps:
-      - uses: actions/checkout@v5
+      - name: Check out project
+        uses: actions/checkout@v5
+
+      - name: Install build tools
+        run: |
+          brew update
+          brew install ninja cmake
+
       - name: Clone JUCE
-        run: git clone --depth 1 https://github.com/juce-framework/JUCE.git
+        run: |
+          git clone --depth 1 --branch 8.0.12 \
+            https://github.com/juce-framework/JUCE.git JUCE
+
+      - name: Show tool versions
+        run: |
+          cmake --version
+          ninja --version
+          xcodebuild -version
+
       - name: Configure
-        run: cmake -B build -G Ninja
+        run: |
+          cmake -S . -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release
+
       - name: Build
-        run: cmake --build build
+        run: |
+          cmake --build build \
+            --config Release \
+            --parallel 2 \
+            --verbose
+
+      - name: Check VST3 output
+        run: |
+          find build -type d -name "*.vst3" -print
+
       - name: Upload VST3
         uses: actions/upload-artifact@v5
         with:
           name: NeonDrive85-VST3
-          path: build/NeonDrive85_artefacts/VST3/
+          path: |
+            build/**/*_artefacts/VST3/*.vst3
+          if-no-files-found: error
